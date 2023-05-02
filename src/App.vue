@@ -23,11 +23,14 @@
     <div class="loaderclass" v-if="loader">
         <img class="loader" src="./assets/loader.svg" alt="Loader">
     </div>
-    <!-- Code is displaying details after serch bar is pressed or revoked -->
-    <div v-for="item in filtered" v-bind:key="item.id">
-        <ItemCard :id="item.id" :name="findName(item.name)" :MRP="Math.round(item.orginalPrice)" :discount="item.discountPercentage" :discountedPrice="Math.round(calculateSP(item.orginalPrice,item.discountPercentage))" :image="item.image" :rat="item.rating" />
+    <div class="container">
+        <div class="item" v-for="item in filtered" v-bind:key="item.id">
+            <ItemCard :id="item.id" :name="findName(item.name)" :MRP="Math.round(item.orginalPrice)" 
+                :discount="item.discountPercentage" :discountedPrice="Math.round(calculateSP(item.orginalPrice,item.discountPercentage))" 
+                :image="item.image" :rat="item.rating" />
+            </div>
+        </div>
     </div>
-</div>
 </template>
 
 <script>
@@ -77,10 +80,8 @@ export default {
         }
     },
     watch: {
-        searchTerm(currentValue) {
-            this.filtered = this.filtered.filter((item) => item.name.includes(currentValue.toUpperCase()));
-            this.fetched = true
-            this.home = false
+        searchTerm: function(currentValue) {
+            this.filtered = this.list.filter((item) => item.name.includes(currentValue.toUpperCase()));        
         },
         sort(currentValue) {
             if (currentValue == 'orginalPrice') {
@@ -157,6 +158,10 @@ body {
 }
 .loaderclass {
     background-image: none;
+    justify-content: center;
+    display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .loader {
     width: 1000px;

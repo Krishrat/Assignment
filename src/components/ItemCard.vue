@@ -4,6 +4,12 @@
 import StarRating from 'vue-star-rating'
 export default{
     name:'ItemCard',
+    data()
+    {
+        return{
+            classname:'card-container1'
+        }
+    },
     props:{
         id:Number,
         name:String,
@@ -15,12 +21,12 @@ export default{
     },
     components:{
         StarRating
-    }
+    },
 }
 </script>
 
 <template class="main">
-    <div class="card-container">
+    <div class="card-container1" >
         <div class="card-body">
             
             <img class="card-photo" :src="image" alt="Shoes Image">
@@ -40,11 +46,12 @@ export default{
             
         </div>
     </div>
+
 </template>
 
 <style>
 *{
-    margin: 0px;
+    margin-left: 10px;
     padding: 0px;
 
 }
@@ -65,17 +72,18 @@ export default{
     font-size: 18px;
     background-image: none;
 }
-.card-container{
+.card-container1{
     height: 400px;
     width: 400px;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    border-radius: 20px;
+    border-radius: 5px;
     float: left;
     background-color: white;
     align-items: center;
-    margin-left: 60px;
+    margin-left: 30px;
+    margin-right: 10px;
     margin-bottom: 30px;
 }
 .card-photo{
@@ -107,9 +115,8 @@ export default{
     margin: 5%;
     background-size: 1000cm;
 }
-.main
-{
-    background-image: none;
-}
+
+
+
 
 </style>

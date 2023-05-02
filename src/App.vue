@@ -16,7 +16,7 @@
             <h1 style="color:white;">API Hits: {{ apihitcount }}
             </h1>
         </div>
-        <input placeholder="Search...." class="search-input" type="text" v-model="searchTerm" />
+        <input placeholder="Search...." class="search-input" type="text" v-model="searchTerm" @blur="removeSearchTerm"/>
     </div>
 
     <br>
@@ -57,8 +57,6 @@ export default {
         axios.get('https://run.mocky.io/v3/531b65a6-0355-4892-b54e-70903a79075a')
             .then((res) => {
                 this.list = [...res.data];
-                console.log(typeof this.list[0].orginalPrice)
-                console.log(Math.round (this.list[2].orginalPrice))
                 this.filtered = [...res.data];
                 this.loader = false
                 if(localStorage.getItem('apihitcount'))
@@ -77,6 +75,10 @@ export default {
             var n = name.indexOf('(');
             var str = name.substring(0, n);
             return str;
+        },
+        removeSearchTerm()
+        {
+            this.searchTerm='';
         }
     },
     watch: {
@@ -85,16 +87,16 @@ export default {
         },
         sort(currentValue) {
             if (currentValue == 'orginalPrice') {
-                this.filtered = this.filtered.sort((a, b) => {
+                this.filtered = this.list.sort((a, b) => {
                     return this.calculateSP(a.orginalPrice, a.discountPercentage) -
                         this.calculateSP(b.orginalPrice, b.discountPercentage);
                 })
             } else if (currentValue == 'discountPercentage') {
-                this.filtered = this.filtered.sort((a, b) => {
+                this.filtered = this.list.sort((a, b) => {
                     return b.discountPercentage - a.discountPercentage;
                 })
             } else if (currentValue == 'rating') {
-                this.filtered = this.filtered.sort((a, b) => {
+                this.filtered = this.list.sort((a, b) => {
                     return b.rating - a.rating;
                 })
             } else if (currentValue == 'Sort By') {
